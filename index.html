@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Letsema - Distributed Microfinance System</title>
+    <style>
+        /* Color Palette */
+        :root {
+            --primary-blue: #2563eb;
+            --secondary-blue: #3b82f6;
+            --light-blue: #bfdbfe;
+            --dark-blue: #1e40af;
+            --neutral-gray: #6b7280;
+            --light-gray: #f3f4f6;
+            --white: #ffffff;
+            --text-dark: #1f2937;
+            --accent: #cbd5e1;
+        }
+
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--light-gray);
+        }
+
+        h1, h2, h3, h4 {
+            margin-bottom: 1rem;
+            color: var(--dark-blue);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+        }
+
+        h2 {
+            font-size: 2rem;
+            padding-top: 2rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        ul, ol {
+            margin-left: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        a {
+            color: var(--primary-blue);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+            margin: 1.5rem 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: var(--light-gray);
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+        }
+
+        pre {
+            background-color: var(--text-dark);
+            color: var(--white);
+            padding: 1rem;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin-bottom: 1.5rem;
+        }
+
+        blockquote {
+            border-left: 4px solid var(--secondary-blue);
+            padding-left: 1rem;
+            margin-left: 0;
+            margin-right: 0;
+            font-style: italic;
+            color: var(--neutral-gray);
+        }
+
+        /* Layout */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary-blue), var(--dark-blue));
+            color: var(--white);
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        .header-content {
+            padding: 2rem 1rem;
+        }
+
+        .header-title {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--white);
+        }
+
+        .header-subtitle {
+            font-size: 1.25rem;
+            color: var(--light-blue);
+        }
+
+        /* Navigation */
+        nav {
+            background-color: var(--dark-blue);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--white);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style-type: none;
+        }
+
+        .nav-links li {
+            margin-left: 1.5rem;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--light-blue);
+        }
+
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 2rem 0;
+        }
+
+        .blog-post {
+            background-color: var(--white);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .blog-meta {
+            color: var(--neutral-gray);
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        /* Features Section */
+        .features-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .feature-col {
+            flex: 1;
+            min-width: 300px;
+            background-color: var(--white);
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .feature-icon {
+            background-color: var(--light-blue);
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        .feature-icon i {
+            color: var(--primary-blue);
+            font-size: 1.5rem;
+        }
+
+        /* Code Blocks */
+        .code-block {
+            background-color: #282c34;
+            color: #abb2bf;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 2rem 0;
+        }
+
+        /* Architecture Diagram */
+        .architecture-diagram {
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        /* Metrics */
+        .metrics-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .metric-card {
+            flex: 1;
+            min-width: 200px;
+            background-color: var(--white);
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-label {
+            color: var(--neutral-gray);
+        }
+
+        /* Call to Action */
+        .cta-section {
+            background-color: var(--primary-blue);
+            color: var(--white);
+            text-align: center;
+            padding: 3rem 1rem;
+            border-radius: 8px;
+            margin: 3rem 0;
+        }
+
+        .cta-title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--white);
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--white);
+            color: var(--primary-blue);
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: background-color 0.3s, transform 0.3s;
+            margin-top: 1rem;
+        }
+
+        .cta-button:hover {
+            background-color: var(--light-blue);
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-blue);
+            color: var(--white);
+            padding: 3rem 0;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+
+        .footer-col {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .footer-title {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            color: var(--white);
+        }
+
+        .footer-links {
+            list-style-type: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: var(--light-blue);
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid var(--primary-blue);
+            color: var(--light-blue);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                background-color: var(--dark-blue);
+                padding: 1rem 0;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links li {
+                margin: 0.5rem 1rem;
+            }
+
+            .nav-toggle {
+                display: block;
+            }
+
+            .features-section {
+                flex-direction: column;
+            }
+
+            .feature-col {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container nav-container">
+            <div class="nav-logo">Letsema</div>
+            <button class="nav-toggle">☰</button>
+            <ul class="nav-links">
+                <li><a href="#introduction">Introduction</a></li>
+                <li><a href="#design">System Design</a></li>
+                <li><a href="#implementation">Implementation</a></li>
+                <li><a href="#evaluation">Evaluation</a></li>
+                <li><a href="#resources">Resources</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <h1 class="header-title">Letsema</h1>
+            <p class="header-subtitle">Building a Distributed Microfinance Loan Management System</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container main-content">
+        <article class="blog-post">
+            <div class="blog-meta">Posted on April 25, 2025</div>
+            
+            <section id="introduction">
+                <h2>Introduction</h2>
+                <p>Microfinance institutions (MFIs) play a vital role in providing financial services to underserved communities in Lesotho. However, these institutions often operate in isolated environments, leading to significant challenges in sharing borrower credit history, preventing loan stacking, and efficiently managing loans across multiple MFIs. This isolation results in high default rates, inefficient loan processing, and barriers to fair credit access.</p>
+                
+                <p>In this post, I'll share our journey building <strong>Letsema</strong>, a distributed microfinance loan management system designed to address these challenges. Letsema enables multiple MFIs to share borrower data securely while optimizing loan approval processes and ensuring transparency in loan management.</p>
+                
+                <h3>The Problem</h3>
+                <p>The key issues facing microfinance institutions in Lesotho include:</p>
+                <ul>
+                    <li><strong>Isolated Operations</strong>: MFIs function independently with no shared information system</li>
+                    <li><strong>Loan Stacking</strong>: Borrowers can take multiple loans from different MFIs without detection</li>
+                    <li><strong>Poor Credit History Visibility</strong>: Institutions lack access to borrowers' comprehensive credit histories</li>
+                    <li><strong>Inefficient Loan Processing</strong>: Manual systems and duplicated efforts across institutions</li>
+                    <li><strong>Data Silos</strong>: Each MFI maintains separate databases with no cross-institution sharing</li>
+                </ul>
+            </section>
+            
+            <section id="design">
+                <h2>System Design & Architecture</h2>
+                
+                <h3>High-Level Architecture</h3>
+                <p>Letsema employs a distributed database architecture that balances data sovereignty with necessary information sharing:</p>
+                
+                <div class="architecture-diagram">
+                    <img src="https://via.placeholder.com/800x400?text=Letsema+System+Architecture" alt="Letsema System Architecture">
+                </div>
+                
+                <p>The system consists of five main components:</p>
+                <ol>
+                    <li><strong>PostgreSQL Clusters for MFIs</strong>: Each MFI (A & B) maintains its own Supabase-hosted PostgreSQL cluster with complete data sovereignty</li>
+                    <li><strong>Letsema Core Cluster</strong>: A central Supabase-hosted PostgreSQL cluster managing system-wide functionality</li>
+                    <li><strong>MongoDB Atlas Cluster</strong>: A shared NoSQL database storing consolidated borrower credit histories</li>
+                    <li><strong>Django Backend</strong>: Handling business logic, security, and cross-cluster communication</li>
+                    <li><strong>React Frontend</strong>: Providing intuitive interfaces for borrowers and MFI employees</li>
+                </ol>
+                
+                <h3>Database Design</h3>
+                <p>The distributed database design preserves MFI autonomy while enabling critical data sharing:</p>
+                
+                <h4>PostgreSQL Clusters (Supabase)</h4>
+                <ul>
+                    <li><strong>MFI A & B Clusters</strong>: Store institution-specific loan records, borrower profiles, and transaction data</li>
+                    <li><strong>Letsema Core Cluster</strong>: Maintains user registry, MFI information, global settings, and system metadata</li>
+                </ul>
+                
+                <h4>MongoDB Atlas Cluster</h4>
+                <ul>
+                    <li>Stores consolidated borrower credit history from all participating MFIs</li>
+                    <li>Enables cross-MFI credit checks with appropriate privacy controls</li>
+                    <li>Uses document-based structure for flexible credit history representations</li>
+                </ul>
+                
+                <h3>Cross-Cluster Communication</h3>
+                <p>For secure data sharing across database clusters, we implemented two approaches:</p>
+                <ol>
+                    <li><strong>PostgreSQL Foreign Data Wrappers (FDW)</strong>: For direct, lower-level database communication</li>
+                    <li><strong>REST API Integration</strong>: For service-level communication with appropriate authentication</li>
+                </ol>
+            </section>
+            
+            <!-- Features Section - Three Column Layout -->
+            <h2>Core Features</h2>
+            <div class="features-section">
+                <div class="feature-col">
+                    <div class="feature-icon">A</div>
+                    <h3>User Authentication</h3>
+                    <ul>
+                        <li>Multi-provider OAuth (Google/GitHub)</li>
+                        <li>JWT-based session management</li>
+                        <li>Role-based access control</li>
+                        <li>MFI selection and context switching</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-col">
+                    <div class="feature-icon">B</div>
+                    <h3>Loan Management</h3>
+                    <ul>
+                        <li>Multi-step loan application workflow</li>
+                        <li>Risk assessment using shared credit history</li>
+                        <li>Automated approval routing</li>
+                        <li>Real-time status updates</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-col">
+                    <div class="feature-icon">C</div>
+                    <h3>Credit Repository</h3>
+                    <ul>
+                        <li>Cross-MFI credit history aggregation</li>
+                        <li>Privacy-preserving data sharing</li>
+                        <li>Consent tracking</li>
+                        <li>Real-time updates</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <section id="implementation">
+                <h2>Implementation Details</h2>
+                
+                <h3>Technology Stack</h3>
+                <ul>
+                    <li><strong>Backend</strong>: Django (Python) with Django REST Framework</li>
+                    <li><strong>Frontend</strong>: React.js with Material-UI components</li>
+                    <li><strong>Databases</strong>: 
+                        <ul>
+                            <li>Supabase-hosted PostgreSQL</li>
+                            <li>MongoDB Atlas with MongoEngine integration</li>
+                        </ul>
+                    </li>
+                    <li><strong>Authentication</strong>: OAuth 2.0 with Google/GitHub providers and JWT</li>
+                    <li><strong>Containerization</strong>: Docker with docker-compose</li>
+                    <li><strong>CI/CD</strong>: GitHub Actions</li>
+                    <li><strong>Project Management</strong>: JIRA for Agile sprint planning</li>
+                </ul>
+                
+                <h3>Code Architecture</h3>
+                <p>Our codebase follows a modular structure with clear separation of concerns:</p>
+                
+                <div class="code-block">
+                    letsema/<br>
+                    ├── backend/<br>
+                    │   ├── core/              # Letsema core functionality<br>
+                    │   ├── mfi_connector/     # MFI database connection handlers<br>
+                    │   ├── credit_history/    # MongoDB integration for credit histories<br>
+                    │   ├── loan_management/   # Loan application processing<br>
+                    │   └── api/               # REST API endpoints<br>
+                    ├── frontend/<br>
+                    │   ├── src/<br>
+                    │   │   ├── components/    # Reusable UI components<br>
+                    │   │   ├── pages/         # Application views<br>
+                    │   │   ├── services/      # API integration<br>
+                    │   │   └── context/       # State management<br>
+                    └── devops/<br>
+                        ├── docker/            # Docker configuration<br>
+                        └── ci/                # CI/CD pipeline scripts<br>
+                </div>
+                
+                <h3>Challenges & Solutions</h3>
+                
+                <h4>1. Data Synchronization</h4>
+                <p><strong>Challenge</strong>: Maintaining consistency across distributed PostgreSQL clusters.</p>
+                <p><strong>Solution</strong>: Implemented a transaction coordinator service that ensures eventual consistency using a message queue system for synchronization operations.</p>
+                
+                <h4>2. Security & Privacy</h4>
+                <p><strong>Challenge</strong>: Sharing sensitive financial data while protecting borrower privacy.</p>
+                <p><strong>Solution</strong>: Created a consent-based data sharing model with fine-grained access controls, data masking for sensitive fields, and comprehensive audit logging.</p>
+                
+                <h4>3. Network Reliability</h4>
+                <p><strong>Challenge</strong>: Handling intermittent connectivity common in rural Lesotho.</p>
+                <p><strong>Solution</strong>: Developed an offline-first approach with local data caching and background synchronization when connectivity is restored.</p>
+                
+                <h4>4. Performance Optimization</h4>
+                <p><strong>Challenge</strong>: Ensuring responsive queries across distributed database clusters.</p>
+                <p><strong>Solution</strong>: Implemented targeted denormalization, strategic caching layers, and asynchronous processing for non-critical operations.</p>
+            </section>
+            
+            <section id="evaluation">
+                <h2>Evaluation</h2>
+                
+                <h3>Performance Metrics</h3>
+                <p>During our pilot deployment with two MFIs, Letsema demonstrated:</p>
+                
+                <div class="metrics-container">
+                    <div class="metric-card">
+                        <div class="metric-value">94%</div>
+                        <div class="metric-label">Queries under 500ms</div>
+                    </div>
+                    
+                    <div class="metric-card">
+                        <div class="metric-value">2.3s</div>
+                        <div class="metric-label">Avg. Sync Delay</div>
+                    </div>
+                    
+                    <div class="metric-card">
+                        <div class="metric-value">99.7%</div>
+                        <div class="metric-label">System Uptime</div>
+                    </div>
+                    
+                    <div class="metric-card">
+                        <div class="metric-value">200</div>
+                        <div class="metric-label">Concurrent Users</div>
+                    </div>
+                </div>
+                
+                <h3>Business Impact</h3>
+                <p>The initial deployment showed promising results:</p>
+                
+                <div class="metrics-container">
+                    <div class="metric-card">
+                        <div class="metric-value">30%</div>
+                        <div class="metric-label">Reduction in processing time</div>
+                    </div>
+                    
+                    <div class="metric-card">
+                        <div class="metric-value">25%</div>
+                        <div class="metric-label">Decrease in loan defaults</div>
+                    </div>
+                    
+                    <div class="metric-card">
+                        <div class="metric-value">40%</div>
+                        <div class="metric-label">Increase in cross-referencing</div>
+                    </div>
+                    
+                    <div class="metric-card">
+                        <div class="metric-value">85%</div>
+                        <div class="metric-label">User satisfaction</div>
+                    </div>
+                </div>
+            </section>
+            
+            <section>
+                <h2>Conclusion</h2>
+                <p>Letsema demonstrates how distributed database architecture can solve real-world challenges in the microfinance sector. By balancing data sovereignty with necessary information sharing, the system enables MFIs to collaborate effectively while maintaining institutional autonomy.</p>
+                
+                <p>Key takeaways from this project include:</p>
+                <ol>
+                    <li><strong>Distributed Doesn't Mean Disconnected</strong>: Well-designed distributed systems can provide both autonomy and collaboration</li>
+                    <li><strong>Data Sharing Requires Trust</strong>: Technical solutions must be complemented by appropriate governance frameworks</li>
+                    <li><strong>Local Context Matters</strong>: Solutions must address infrastructure challenges specific to deployment regions</li>
+                    <li><strong>Flexibility Through Modularity</strong>: The containerized approach allowed for rapid iteration and adaptation</li>
+                </ol>
+                
+                <h3>Next Steps</h3>
+                <p>We're continuing to develop Letsema with these planned enhancements:</p>
+                <ol>
+                    <li>Mobile-first interfaces for field officers working in remote areas</li>
+                    <li>Integration with national ID systems for improved KYC processes</li>
+                    <li>Expanded analytics capabilities with machine learning-based risk assessment</li>
+                    <li>Support for additional MFIs to join the network</li>
+                </ol>
+            </section>
+            
+            <div class="cta-section">
+                <h2 class="cta-title">Interested in learning more?</h2>
+                <p>Check out our GitHub repository or join the community to contribute to this project.</p>
+                <a href="https://github.com/letsema-project/letsema" class="cta-button">Visit GitHub Repository</a>
+            </div>
+            
+            <section id="resources">
+                <h2>Project Resources</h2>
+                <ul>
+                    <li><strong>GitHub Repository</strong>: <a href="https://github.com/letsema-project/letsema">github.com/letsema-project/letsema</a></li>
+                    <li><strong>Project Management</strong>: <a href="https://letsema.atlassian.net">letsema.atlassian.net</a></li>
+                    <li><strong>Documentation</strong>: <a href="https://docs.letsema.org">docs.letsema.org</a></li>
+                </ul>
+            </section>
+        </article>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-col">
+                <h3 class="footer-title">Letsema Project</h3>
+                <p>A distributed microfinance loan management system for MFIs in Lesotho.</p>
+            </div>
+            
+            <div class="footer-col">
+                <h3 class="footer-title">Resources</h3>
+                <ul class="footer-links">
+                    <li><a href="https://github.com/letsema-project/letsema">GitHub Repository</a></li>
+                    <li><a href="https://letsema.atlassian.net">Project Management</a></li>
+                    <li><a href="https://docs.letsema.org">Documentation</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h3 class="footer-title">Connect</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">LinkedIn</a></li>
+                    <li><a href="#">Email</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="container copyright">
+            <p>&copy; 2025 CS4430 Distributed Database Systems, National University of Lesotho. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Simple Navigation Toggle
+        document.querySelector('.nav-toggle').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+    </script>
+</body>
+</html>
